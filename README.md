@@ -1,44 +1,39 @@
-# 🚀 YMNC1026 - Advanced Persistent Threat Framework
+# 💀 Incident Report: Operation APT_YMNC (AI Kill Chain)
 
-## ⚡ Project Status: **ACTIVE - BLACK OPS**
-
-![Version](https://img.shields.io/badge/version-2.0.0-black)
-![Build](https://img.shields.io/badge/build-passing-critical)
-![License](https://img.shields.io/badge/license-MIT-darkred)
-![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-purple)
-
-> **"The only easy day was yesterday."** — Navy SEALs Motto
+An in-depth technical breakdown and analysis of the **ymnc1026_bootkit.sys** kernel driver, tracking its exploitation path, lateral movement, and targeted infrastructure disruption.
 
 ---
 
-## 🔥 Overview
+## 📊 File Metadata
 
-YMNC1026 is a sophisticated, multi-vector offensive security framework designed for advanced penetration testing, red team operations, and AI infrastructure exploitation. This modular toolkit combines kernel-level persistence, GPU-side-channel attacks, and AI model poisoning capabilities into a single cohesive platform.
+| Attribute | Value |
+| :--- | :--- |
+| **File Name** | `ymnc1026_bootkit.sys` (Kernel Driver) |
+| **Size** | 372,736 bytes (`0x5B000`) |
+| **MD5** | `c4a9d7f2e8b36c1d5a7f9e2c8b4a6d3f` |
+| **SHA-256** | `8d4c9f2a1b6e7c5d8f3a9b2c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f` |
 
-### 🎯 Key Features
-
-- **Kernel-Level Rootkit** - Windows driver with SYSTEM privileges
-- **AI/ML Attack Vectors** - GPU memory manipulation, model poisoning
-- **C2 Infrastructure** - Encrypted DNS tunneling with fallback mechanisms
-- **Anti-Forensics** - Automated log wiping and VSS destruction
-- **Lateral Movement** - SMB/NTLM relay with pass-the-hash capabilities
-- **Ransomware Module** - Custom encryption with .ymnc1026 extension
+### 🔍 Extracted Indicators (.rdata)
+* 📄 `"hatemel.js"` @ `0x1000F3A4`
+* 📅 `"1997-04-15 03:14:07 UTC"` @ `0x1000F3B8`
+* 🛠️ `"ymnc1026_c2"` @ `0x1000F3E0`
+* 🎯 `"AI_KILL_CHAIN_v2"` @ `0x1000F3F0`
+* 🌐 `"54.36.12.87:443"` @ `0x1000F402`
+* ⚡ `"NVIDIA_CUDA_ABUSE"` @ `0x1000F416`
+* 🏷️ `"APT_YMNC"` @ `0x1000F42A`
 
 ---
 
-## 📦 Installation
+## 🕒 Attack Timeline & Kill Chain
 
-### 🔧 Prerequisites
-
-```bash
-# Windows Environment
-- Windows SDK 10.0.22000.0
-- Visual Studio 2022 Community
-- WDK (Windows Driver Kit)
-- Python 3.9+ for payload generation
-
-# Linux Environment  
-- GCC 11.4.0
-- CUDA Toolkit 12.0+
-- Go 1.20+ (for C2 server)
-- Docker 24.0.0+
+```mermaid
+timeline
+    title Operation APT_YMNC Execution Sequence
+    02:58:31 : Initial Access : CVE-2026-PENDING HTTP/2 Continuation Frame exploitation on Load Balancer. Reverse shell spawned to 54.36.12.87:443.
+    03:02:17 : Privilege Escalation : Task Scheduler abuse to execute ymnc1026_bootkit.sys with SYSTEM privileges. wininit.exe (PID 688) injected.
+    03:05:44 : Lateral Movement : SMBexec via stolen NTLM hash to pivot to Domain Controller (10.10.10.12). Deployed beacon payload.
+    03:09:22 : Reconnaissance : Kubernetes API queries targeting GPU clusters and NVIDIA A100 nodes.
+    03:14:07 : Infrastructure Sabotage : Crafted CUDA kernels deployed to overheat GPU memory. Hardware throttling observed at 03:17:03Z.
+    03:22:41 : Exfiltration : DNS Tunneling to ymnc1026.xyz (198.51.100.77) exfiltrating training datasets.
+    03:28:13 : Impact : Ransomware deployment encrypting SMB shares with .ymnc1026 extension. Dropped README_YMNC.txt.
+    03:35:07 : Defense Evasion : Cleared Windows Event Logs and wiped Volume Shadow Copies via vssadmin.exe.
